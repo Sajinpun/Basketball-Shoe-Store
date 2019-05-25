@@ -1,0 +1,98 @@
+﻿@model IEnumerable<bshoestore.Models.Product>
+
+
+<ul class="margin-top customUL"></ul>
+@{int counter = 1;}
+
+@foreach (var i in Model)
+{
+    if (counter == 1)
+    {
+        @Html.Raw(@"<div class=""row"">");
+    }
+
+
+    <div class="col-md-4">
+        <div class="border">
+            <div class="row">
+                @*<div class="col-md-6">
+                    <img class="img-responsive" src="@Url.Content(Model.Image)" />
+                </div>*@
+                <div class="col-md-6">
+
+                    <div>
+                        @Html.DisplayNameFor(Product => Product.Description) = @Html.DisplayFor(model => i.Description)
+                    </div>
+                    <div>
+                        @Html.DisplayNameFor(Product => Product.Model) = @Html.DisplayFor(model => i.Model)
+                    </div>
+
+                    <div>
+                        @Html.DisplayNameFor(Product => Product.Size) = @Html.DisplayFor(model => i.Size)
+                    </div>
+                    <div>
+                        @Html.DisplayNameFor(Product => Product.Price) = £ @Html.DisplayFor(model => i.Price)
+                    </div>
+
+                    @*<a class="btn btn-success" href="#">Add to Cart</a>*@
+                    @using (Html.BeginForm("AddToCart", "Cart", new { Id = i.ProductId }))
+                    {
+                        @*@Html.HiddenFor(model => i.Id)*@
+                        @*@Html.HiddenFor(x => x.ProductId)*@
+                        @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                        <input type="submit" class="btn btn-primary" value="Add to Cart" />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    if (counter == 1 && Model.LastOrDefault().Equals(i))
+    {
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+        @Html.Raw("</div>");
+    }
+
+    if (counter == 2 && Model.LastOrDefault().Equals(i))
+    {
+        <div class="col-md-4"></div>
+        @Html.Raw("</div>");
+    }
+
+    if (counter == 3)
+    {
+        @Html.Raw("</div>");
+        <hr />
+    }
+
+    counter++;
+
+    if (counter == 4)
+    {
+        counter = 1;
+    }
+}
+
+
+
+
+    @*<h3>*@@*  *@
+        @*<strong>@Model.Name</strong>*@
+        @*<span class="label label-primary pull-right">@Model.Price.ToString("c")</span>*@
+    @*</h3>*@
+
+    @*@using (Html.BeginForm("AddToCart", "Cart"))
+    {
+        <div class="pull-right">
+            @Html.HiddenFor(x => x.ProductId)
+            @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+            <input type="submit" class="btn btn-success" value="Add to cart" />
+        </div>
+    }*@
+    @*<div>
+        <span><img class="img-responsive" width="70" height="70" src="data:image;base64,@System.Convert.ToBase64String(Model.Image)" /></span>
+    </div>*@
+    @*<span class="lead">@Model.Description</span>
+</div>*@

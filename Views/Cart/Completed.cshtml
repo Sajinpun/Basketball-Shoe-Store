@@ -1,0 +1,16 @@
+﻿
+
+@model bshoestore.Models.ShippingDetails
+@{
+    ViewBag.Title = "Bshoe Store: Order Submitted";
+}
+@using (Html.BeginForm())
+{
+    <h2 class="brandName-left">Checkout Complete!!!</h2>
+    <p class="brandName-left">Thanks for your order! Your order is being processed.</p>
+    <p class="brandName-left">
+        How about shopping for some more Products in our
+        @Html.ActionLink("BASKETBALL SHOE STORE",
+"Index", "Home")
+    </p>
+}

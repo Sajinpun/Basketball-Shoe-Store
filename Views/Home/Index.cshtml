@@ -1,0 +1,94 @@
+﻿@model IEnumerable<bshoestore.Models.ShoesEntities>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<ul class="margin-top customUL"></ul>
+@{int counter = 1;}
+@foreach (var i in Model)
+{
+    if (counter == 1)
+    {
+        @Html.Raw(@"<div class=""row"">");
+
+    }
+
+<div class="col-md-4">
+    <div class="border">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="col-md-6">
+                    <img class="img-responsive" src="@Url.Content(i.Image)" />
+                </div>
+                <div class="col-md-6">
+
+                    <div>
+                        @Html.DisplayNameFor(Product => Product.Description) = @Html.DisplayFor(model => i.Description)
+                    </div>
+                    <div>
+                        @Html.DisplayNameFor(Product => Product.Model) = @Html.DisplayFor(model => i.Model)
+                    </div>
+
+                    <div>
+                        @Html.DisplayNameFor(Product => Product.Size) = @Html.DisplayFor(model => i.Size)
+                    </div>
+                    <div>
+                        @Html.DisplayNameFor(Product => Product.Price) = £ @Html.DisplayFor(model => i.Price)
+                    </div>
+
+                    @*<a class="btn btn-success" href="#">Add to Cart</a>*@
+                    @using (Html.BeginForm("AddToCart", "Home", new { Id = i.ProductId }))
+                    {
+                        @*@Html.HiddenFor(model => i.Id)*@
+                        <input type="submit" class="btn btn-primary" value="Add to Cart" />
+                    }
+
+                </div>
+        </div>
+    </div>
+</div>
+
+   </div>
+
+    if (counter == 1 && Model.LastOrDefault().Equals(i))
+    {
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+        @Html.Raw("</div>");
+    }
+
+    if (counter == 2 && Model.LastOrDefault().Equals(i))
+    {
+        <div class="col-md-4"></div>
+        @Html.Raw("</div>");
+    }
+
+    if (counter == 3)
+    {
+        @Html.Raw("</div>");
+        <hr />
+    }
+
+    counter++;
+
+    if (counter == 4)
+    {
+        counter = 1;
+    }
+}
+
+
+    
+    
+    @*  <p><i class="fa fa-send"></i> @Html.ActionLink("Go to List", "List", "Product", null, new { @class = "btn btn-banner btn-sm m-b" })</p>*@
+            
+            <!--<div>
+                <nav aria-label="...">
+                    <ul class="pager">
+                        <li><a href="#">Previous</a></li>
+                        <li><a href="#">Next</a></li>
+                    </ul>
+                </nav>
+            </div>-->
+            <!--PORTFOLIO END-->
